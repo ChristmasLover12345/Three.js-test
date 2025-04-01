@@ -9,9 +9,13 @@ renderer.setSize(window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement )
 
 const geometry = new THREE.DodecahedronGeometry(8);
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00});
+const material = new THREE.MeshPhongMaterial( { color: 0x00ff00});
 const cube = new THREE.Mesh( geometry, material);
-scene.add(cube)
+
+const light = new THREE.DirectionalLight({color: 0xFFFFFF}, 2)
+light.position.set(-1, 2, 27)
+
+scene.add(cube, light)
 
 camera.position.z = 25
 
@@ -19,6 +23,8 @@ function animate() {
     cube.rotation.x += 0.001;
     cube.rotation.y += 0.002;
     renderer.render(scene, camera)
+
+    requestAnimationFrame(animate);
 }
 
-renderer.setAnimationLoop(animate)
+requestAnimationFrame(animate);
